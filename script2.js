@@ -1,22 +1,21 @@
 const input = document.querySelector('input');
-const items = document.querySelector('#items');
+const items = document.querySelector('#items');          // e.g. <div id="items"></div>
 
-input.addEventListener('keyup', ()=>{
+input.addEventListener('keyup', () => {
     const query = input.value.trim();
-    if(query.length > 2){
+    if (query.length > 2) {
         searchbooks(query);
     }
 });
 
-
-async function searchbooks(query){
+async function searchbooks(query) {
     const url = `https://openlibrary.org/search.json?q=${encodeURIComponent(query)}`;
     const response = await fetch(url);
     const data = await response.json();
     displaybooks(data.docs);
 }
 
-function displaybooks(books){
+function displaybooks(books) {
     items.innerHTML = '';
     if (!books || !books.length) return;
     books.slice(0, 10).forEach(book => {
